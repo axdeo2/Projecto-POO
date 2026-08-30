@@ -1,9 +1,9 @@
 import java.util.Random;
 import java.util.Scanner;
 
-public class Mistico extends Personaje {
+public class Místico extends Personaje {
 
-    public Mistico(String nombre, int vida, int ataque, int defensa) {
+    public Místico(String nombre, int vida, int ataque, int defensa) {
         super(nombre, vida, ataque, defensa);
     }
 
