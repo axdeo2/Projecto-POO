@@ -17,7 +17,7 @@ Infer the repo from `git remote -v` — `gh` does this automatically when run in
 
 **PRs as a request surface: no.** _(Set to `yes` if this repo treats external PRs as feature requests; `/triage` reads this flag.)_
 
-Este proyecto no usa flujo de Pull Requests entre compañeros: el trabajo se reparte por issue y cada quien sube su código directamente o coordina con el dueño del repo.
+Este proyecto sí usa Pull Requests: cada compañero trabaja en su propia rama (`feature/<numero-issue>-<slug>`) y abre un PR hacia `main` que Axel revisa y mergea — ver `GUIA_FLUJO_GIT.md` en la raíz del repo para el paso a paso. Las issues se usan solo para asignar y documentar el trabajo (con el prompt sugerido para la IA de quien lo resuelva); no se abren/cierran como seguimiento de estado ni los PR las cierran automáticamente (evitar la palabra clave "Closes #N" en las descripciones de PR).
 
 ## When a skill says "publish to the issue tracker"
 

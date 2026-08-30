@@ -31,7 +31,7 @@ Cuando ayudes a implementar algo en este proyecto, añade el registro correspond
 
 ## Flujo de trabajo en equipo
 
-Los compañeros no usan GitHub con Pull Requests. El reparto de trabajo se hace por **issues de GitHub** (repo `axdeo2/Projecto-POO`), una por bloque grande de trabajo (no issues diminutas). Cada issue trae ya redactado un prompt listo para copiar y pegar en la IA de quien la resuelva — el objetivo es que esa persona lo use, ajuste según la respuesta, y registre el proceso (prompt + captura + qué corrigió a mano) en su propia bitácora. Ver `docs/agents/issue-tracker.md` para las convenciones de `gh` usadas con este tracker.
+El reparto de trabajo se hace por **issues de GitHub** (repo `axdeo2/Projecto-POO`), una por bloque grande de trabajo (no issues diminutas). Cada issue trae ya redactado un prompt listo para copiar y pegar en la IA de quien la resuelva. Cada compañero trabaja en su propia rama (`feature/<numero-issue>-<slug>`) y sube el resultado como **Pull Request** hacia `main`, que Axel revisa y mergea — el paso a paso para compañeros sin experiencia en Git está en `GUIA_FLUJO_GIT.md`. Las issues **no** se abren/cierran como seguimiento de estado (evitar "Closes #N" en los PR); solo sirven para asignar el trabajo y guardar el prompt sugerido. Cada persona registra su proceso (prompt + captura + correcciones) en su propia bitácora `PROMPTS <NOMBRE>.md`. Ver `docs/agents/issue-tracker.md` para las convenciones de `gh` usadas con este tracker.
 
 ## Notas para trabajar en este directorio
 
