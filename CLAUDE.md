@@ -18,16 +18,20 @@ Es la entrega "Proyecto PAO 2026 I – 2EV" del curso de Programación Orientada
 
 El combate es cíclico y termina cuando un equipo queda derrotado o se cumplen 15 rondas (en cuyo caso gana quien tenga más vida total sumada; empate si es igual). La GUI en Android Studio usa `Spinner` para elegir tipo de personaje, `ProgressBar` para la vida, `ScrollView` como log de combate y `AlertDialog` para la predicción del Místico — ver el detalle completo de pantallas en `Proyecto_PAO_2026_-_I_EV.md`.
 
-El desarrollo se hace mediante "vibe coding" (asistido por IA) y debe quedar documentado en [PROMPTS.md](PROMPTS.md), que es una bitácora obligatoria y evaluable (25% de la nota según `RUBRICA_DE_EVALUACION.md`), no un archivo auxiliar descartable.
+El desarrollo se hace mediante "vibe coding" (asistido por IA) y debe quedar documentado en una bitácora por persona (`PROMPTS <NOMBRE>.md`, p. ej. [PROMPTS AXEL.md](PROMPTS%20AXEL.md)), que es un entregable obligatorio y evaluable (25% de la nota según `RUBRICA_DE_EVALUACION.md`), no un archivo auxiliar descartable.
 
-## Trabajando con PROMPTS.md
+## Trabajando con las bitácoras PROMPTS <NOMBRE>.md
 
-`PROMPTS.md` sigue una plantilla fija con tres secciones que se repiten/completan a medida que avanza el desarrollo:
+Es un **proyecto grupal**: cada integrante mantiene su propia bitácora (`PROMPTS <NOMBRE>.md`) para el trabajo que le corresponde. Todas siguen la misma plantilla fija con tres secciones que se repiten/completan a medida que avanza el desarrollo:
 1. **Estrategia General** — enfoque de alto nivel (p. ej. probar la lógica de rondas en consola antes de integrar la UI de Android).
 2. **Registro de Interacciones** — un bloque por cada prompt relevante enviado a la IA, con el prompt exacto, si el código funcionó a la primera, errores/alucinaciones detectadas y qué se corrigió a mano.
 3. **Resolución de Errores (Debugging)** — errores de compilación o crashes (Logcat) resueltos con ayuda de IA.
 
-Cuando ayudes a implementar algo en este proyecto, añade el registro correspondiente en `PROMPTS.md` (no lo sobrescribas ni omitas secciones existentes) siguiendo ese mismo formato.
+Cuando ayudes a implementar algo en este proyecto, añade el registro correspondiente en la bitácora de la persona para la que estés trabajando (no sobrescribas ni omitas secciones existentes) siguiendo ese mismo formato.
+
+## Flujo de trabajo en equipo
+
+Los compañeros no usan GitHub con Pull Requests. El reparto de trabajo se hace por **issues de GitHub** (repo `axdeo2/Projecto-POO`), una por bloque grande de trabajo (no issues diminutas). Cada issue trae ya redactado un prompt listo para copiar y pegar en la IA de quien la resuelva — el objetivo es que esa persona lo use, ajuste según la respuesta, y registre el proceso (prompt + captura + qué corrigió a mano) en su propia bitácora. Ver `docs/agents/issue-tracker.md` para las convenciones de `gh` usadas con este tracker.
 
 ## Notas para trabajar en este directorio
 
@@ -35,3 +39,17 @@ Cuando ayudes a implementar algo en este proyecto, añade el registro correspond
 - Es un proyecto grupal: la autoría de commits/push la decide Axel (dueño del repo `axdeo2/Projecto-POO`); no asumas permiso para agregar colaboradores o modificar configuración del repo de GitHub sin confirmación explícita.
 - Estrategia sugerida por la propia plantilla: implementar primero la lógica POO pura (jerarquía de `Personaje`, bucle de combate de 15 rondas) en Java plano/consola, y solo después integrar los componentes de Android Studio (Activities, layouts, `Spinner`).
 - Cuidado ya señalado en la rúbrica/plantilla como error típico de IA: los efectos basados en porcentaje (p. ej. el 25% de vida que aporta el Mago) deben calcularse sobre **la vida del propio Mago**, y al aplicar daño se debe afectar la **vida actual**, no la vida máxima.
+
+## Agent skills
+
+### Issue tracker
+
+Issues viven en GitHub Issues del repo `axdeo2/Projecto-POO` (usa el CLI `gh`). Sin flujo de PRs entre compañeros. Ver `docs/agents/issue-tracker.md`.
+
+### Triage labels
+
+Vocabulario por defecto de las 5 etiquetas canónicas (needs-triage, needs-info, ready-for-agent, ready-for-human, wontfix). Ver `docs/agents/triage-labels.md`.
+
+### Domain docs
+
+Single-context: un `CONTEXT.md` + `docs/adr/` en la raíz del repo (aún no creados). Ver `docs/agents/domain.md`.
