@@ -43,7 +43,16 @@ No te quedes con la primera respuesta si algo no cuadra con lo que pide la issue
 
 ## Paso 4 — Guarda el código en el proyecto
 
-Coloca los archivos `.java` que te dé la IA dentro de `src/main/java/espol/poo/juego/` (créala si no existe todavía). Si tu IA usó un nombre de paquete distinto en el código, ajústalo para que coincida con esa carpeta — así todos usamos el mismo paquete.
+Coloca los archivos `.java` que te dé la IA dentro de `src/main/java/espol/poo/juego/` (ya existe en el repo). Si tu IA usó un nombre de paquete distinto en el código, ajústalo a `package espol.poo.juego;` para que coincida con esa carpeta — así todos usamos el mismo paquete.
+
+Para probar que compila y corre antes de subirlo:
+
+```bash
+javac -d out $(find src/main/java -name "*.java")
+java -cp out espol.poo.juego.Main
+```
+
+(el segundo comando solo funciona una vez que exista `Main.java` — issue #2. Si solo hiciste las clases del modelo, con que el primer comando compile sin errores ya está bien).
 
 ## Paso 5 — Registra tu proceso en tu bitácora
 

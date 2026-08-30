@@ -4,9 +4,18 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Estado actual del proyecto
 
-Este directorio contiene únicamente documentación ([PROMPTS.md](PROMPTS.md), [Proyecto_PAO_2026_-_I_EV.md](Proyecto_PAO_2026_-_I_EV.md), [RUBRICA_DE_EVALUACION.md](RUBRICA_DE_EVALUACION.md)): aún **no existe** proyecto de Android Studio, código fuente, `build.gradle` ni ningún otro archivo de configuración. Es el punto de partida de la evaluación, antes de generar cualquier código. Es además un **proyecto grupal**, versionado en GitHub (`axdeo2/Projecto-POO`) con issues asignadas por compañero.
+Es un **proyecto grupal**, versionado en GitHub (`axdeo2/Projecto-POO`) con issues asignadas por compañero. Fase actual: lógica POO pura en Java plano (sin Android todavía — issues #1 y #2). El código fuente vive en `src/main/java/espol/poo/juego/` (paquete `espol.poo.juego`); ahí van las clases del modelo (issue #1: `Personaje`, `Guerrero`, `Mago`, `Místico`, `Equipo`) y `Main` (issue #2). Aún **no existe** proyecto de Android Studio ni `build.gradle` — eso llega con la issue #3.
 
-No hay comandos de build/lint/test que documentar todavía. En cuanto se cree el proyecto Android (Gradle), actualiza esta sección con los comandos reales (p. ej. `./gradlew assembleDebug`, `./gradlew test`, `./gradlew lint`) y añade una sección de arquitectura describiendo los paquetes y clases del juego.
+### Compilar y ejecutar (fase Java, sin Android)
+
+No hay Maven/Gradle todavía — se compila directo con `javac` una vez que existan las clases:
+
+```bash
+javac -d out $(find src/main/java -name "*.java")
+java -cp out espol.poo.juego.Main
+```
+
+Cuando se cree el proyecto Android (issue #3), actualiza esta sección con los comandos reales de Gradle (p. ej. `./gradlew assembleDebug`, `./gradlew test`, `./gradlew lint`) y añade una sección de arquitectura describiendo la migración de estas clases al proyecto Android.
 
 ## Qué es este proyecto
 
@@ -44,7 +53,7 @@ El reparto de trabajo se hace por **issues de GitHub** (repo `axdeo2/Projecto-PO
 
 ### Issue tracker
 
-Issues viven en GitHub Issues del repo `axdeo2/Projecto-POO` (usa el CLI `gh`). Sin flujo de PRs entre compañeros. Ver `docs/agents/issue-tracker.md`.
+Issues viven en GitHub Issues del repo `axdeo2/Projecto-POO` (usa el CLI `gh`). Cada compañero trabaja en su propia rama y sube un PR hacia `main`; las issues no se abren/cierran como seguimiento de estado, solo asignan el trabajo. Ver `docs/agents/issue-tracker.md`.
 
 ### Triage labels
 
