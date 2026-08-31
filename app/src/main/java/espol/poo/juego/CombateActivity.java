@@ -1,5 +1,6 @@
 package espol.poo.juego;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -9,8 +10,12 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 
 import java.util.HashMap;
 import java.util.List;
@@ -53,7 +58,17 @@ public class CombateActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_combate);
+
+        View root = findViewById(R.id.root_combate);
+        int paddingBase = root.getPaddingLeft(); // el padding de 16dp que ya tenía el layout
+        ViewCompat.setOnApplyWindowInsetsListener(root, (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(paddingBase + systemBars.left, paddingBase + systemBars.top,
+                    paddingBase + systemBars.right, paddingBase + systemBars.bottom);
+            return insets;
+        });
 
         equipoA = getEquipoExtra("equipoA");
         equipoB = getEquipoExtra("equipoB");
@@ -80,8 +95,42 @@ public class CombateActivity extends AppCompatActivity {
         botonUsarEstrategia.setOnClickListener(v -> onUsarEstrategia());
         botonAtacar.setOnClickListener(v -> onAtacar());
 
-        actualizarBotones();
+        botonUsarEstrategia.setEnabled(false);
+        botonAtacar.setEnabled(false);
         mostrarTurnoActual();
+        mostrarAnimacionVersus();
+    }
+
+    /** Los paneles de cada equipo entran deslizándose desde los bordes hasta el centro, con "VS" en el medio; al terminar, "VS" desaparece y empieza la partida. */
+    private void mostrarAnimacionVersus() {
+        View panelEquipoA = findViewById(R.id.panel_equipo_a);
+        View panelEquipoB = findViewById(R.id.panel_equipo_b);
+        TextView textVsCombate = findViewById(R.id.text_vs_combate);
+
+        float distancia = getResources().getDisplayMetrics().widthPixels;
+        panelEquipoA.setTranslationX(-distancia);
+        panelEquipoB.setTranslationX(distancia);
+
+        panelEquipoA.animate()
+                .translationX(0f)
+                .setDuration(700)
+                .setInterpolator(new android.view.animation.OvershootInterpolator())
+                .start();
+
+        panelEquipoB.animate()
+                .translationX(0f)
+                .setDuration(700)
+                .setInterpolator(new android.view.animation.OvershootInterpolator())
+                .withEndAction(() -> textVsCombate.animate()
+                        .alpha(0f)
+                        .setStartDelay(500)
+                        .setDuration(300)
+                        .withEndAction(() -> {
+                            textVsCombate.setVisibility(View.GONE);
+                            actualizarBotones();
+                        })
+                        .start())
+                .start();
     }
 
     private void onUsarEstrategia() {
@@ -90,7 +139,7 @@ public class CombateActivity extends AppCompatActivity {
 
         if (actual instanceof Mago) {
             ((Mago) actual).usarEstrategia(equipoEnTurno.getPersonajes());
-            agregarLog(actual.getNombre() + " (Mago) usa su estrategia: cura a un compañero vivo en 25% de su propia vida.");
+            agregarLog(actual.getNombre() + " (Mago) usa su estrategia: cura a un compañero vivo en 90% de su propia vida.");
             estrategiaUsada = true;
             refrescarAdapters();
             actualizarBotones();
@@ -107,8 +156,7 @@ public class CombateActivity extends AppCompatActivity {
     private void mostrarDialogoMistico(Mistico mistico) {
         String[] opciones = {"1", "2", "3", "4", "5", "6"};
         new AlertDialog.Builder(this)
-                .setTitle(R.string.titulo_prediccion_mistico)
-                .setMessage(R.string.mensaje_prediccion_mistico)
+                .setTitle(mistico.getNombre() + " — " + getString(R.string.mensaje_prediccion_mistico))
                 .setItems(opciones, (dialog, indiceElegido) -> {
                     int prediccion = indiceElegido + 1;
                     int real = new Random().nextInt(6) + 1;
@@ -223,9 +271,21 @@ public class CombateActivity extends AppCompatActivity {
         new AlertDialog.Builder(this)
                 .setTitle("Fin de la partida")
                 .setMessage(mensaje)
-                .setPositiveButton("Volver a selección", (d, w) -> finish())
+                .setPositiveButton("Jugar de nuevo", (d, w) -> volverASeleccionDeEquipos())
                 .setCancelable(false)
                 .show();
+    }
+
+    /**
+     * Vuelve a MainActivity como pantalla nueva (no solo finish()) para que la
+     * selección de equipos arranque en blanco, sin arrastrar los equipos ya
+     * confirmados de la partida anterior.
+     */
+    private void volverASeleccionDeEquipos() {
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        finish();
     }
 
     private void actualizarBotones() {

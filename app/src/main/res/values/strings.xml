@@ -9,6 +9,7 @@
     <string name="boton_atacar">Atacar</string>
     <string name="titulo_prediccion_mistico">Predicción del Místico</string>
     <string name="mensaje_prediccion_mistico">Elige un número del 1 al 6</string>
+    <string name="texto_vs">VS</string>
 
     <string-array name="tipos_personaje">
         <item>Guerrero</item>

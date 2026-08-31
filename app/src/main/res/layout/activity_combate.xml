@@ -1,33 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root_combate"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
     tools:context=".CombateActivity">
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="220dp"
-        android:orientation="horizontal">
+        android:layout_marginTop="80dp">
 
-        <GridView
-            android:id="@+id/grid_equipo_a"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:numColumns="1"
-            android:layout_marginEnd="4dp" />
+            android:orientation="horizontal">
 
-        <GridView
-            android:id="@+id/grid_equipo_b"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:numColumns="1"
-            android:layout_marginStart="4dp" />
-    </LinearLayout>
+            <FrameLayout
+                android:id="@+id/panel_equipo_a"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginEnd="4dp"
+                android:padding="4dp"
+                android:background="@drawable/marco_equipo_a">
+
+                <GridView
+                    android:id="@+id/grid_equipo_a"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:numColumns="1" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/panel_equipo_b"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginStart="4dp"
+                android:padding="4dp"
+                android:background="@drawable/marco_equipo_b">
+
+                <GridView
+                    android:id="@+id/grid_equipo_b"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:numColumns="1" />
+            </FrameLayout>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/text_vs_combate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textStyle="bold"
+            android:textSize="56sp"
+            android:textColor="@color/white"
+            android:text="@string/texto_vs" />
+    </FrameLayout>
 
     <TextView
         android:id="@+id/text_turno_actual"
@@ -47,6 +80,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:backgroundTint="#3F51B5"
+            android:textColor="@color/white"
             android:text="@string/boton_usar_estrategia" />
 
         <Button
@@ -54,6 +89,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:backgroundTint="#C1180A"
+            android:textColor="@color/white"
             android:text="@string/boton_atacar" />
     </LinearLayout>
 

@@ -45,7 +45,7 @@ public class Mago extends Personaje {
         Personaje objetivo = companerosVivos.get(random.nextInt(companerosVivos.size()));
 
         // Calcular la curación: 25% de la vida actual del propio Mago
-        int curacion = (int) (this.vida * 0.25);
+        int curacion = (int) (this.vida * 0.90);
 
         // Aumentar la vida del objetivo
         objetivo.setVida(objetivo.getVida() + curacion);
