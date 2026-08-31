@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Juegos de Roles</string>
+    <string name="titulo_equipo_a">Equipo A</string>
+    <string name="titulo_equipo_b">Equipo B</string>
+    <string name="hint_nombre">Nombre</string>
+    <string name="boton_confirmar_equipo_a">Confirmar Equipo A</string>
+    <string name="boton_confirmar_equipo_b">Confirmar Equipo B</string>
+    <string name="boton_usar_estrategia">Usar Estrategia</string>
+    <string name="boton_atacar">Atacar</string>
+    <string name="titulo_prediccion_mistico">Predicción del Místico</string>
+    <string name="mensaje_prediccion_mistico">Elige un número del 1 al 6</string>
+
+    <string-array name="tipos_personaje">
+        <item>Guerrero</item>
+        <item>Mago</item>
+        <item>Místico</item>
+    </string-array>
+</resources>
