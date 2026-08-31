@@ -1,9 +1,11 @@
+package espol.poo.juego;
 import java.util.Random;
 import java.util.Scanner;
 
-public class Místico extends Personaje {
 
-    public Místico(String nombre, int vida, int ataque, int defensa) {
+public class Mistico extends Personaje {
+
+    public Mistico(String nombre, int vida, int ataque, int defensa) {
         super(nombre, vida, ataque, defensa);
     }
 

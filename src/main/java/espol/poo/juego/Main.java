@@ -1,3 +1,4 @@
+package espol.poo.juego;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -10,14 +11,14 @@ public class Main {
         equipoA.agregarPersonaje(new Guerrero("Arturo", 100, 25, 10));
         equipoA.agregarPersonaje(new Guerrero("Leónidas", 110, 22, 12));
         equipoA.agregarPersonaje(new Mago("Merlín", 70, 15, 5));
-        equipoA.agregarPersonaje(new Místico("Rasputín", 85, 18, 8));
+        equipoA.agregarPersonaje(new Mistico("Rasputín", 85, 18, 8));
 
         // Creación del Equipo B
         Equipo equipoB = new Equipo("Equipo B");
         equipoB.agregarPersonaje(new Guerrero("Gunnar", 105, 24, 11));
         equipoB.agregarPersonaje(new Guerrero("Ragnar", 115, 21, 13));
         equipoB.agregarPersonaje(new Mago("Gandalf", 75, 14, 6));
-        equipoB.agregarPersonaje(new Místico("Oráculo", 80, 19, 7));
+        equipoB.agregarPersonaje(new Mistico("Oráculo", 80, 19, 7));
 
         System.out.println("¡Los equipos están listos para la batalla!");
         mostrarInfoEquipo(equipoA);
@@ -112,9 +113,9 @@ public class Main {
             } else if (pAtacante instanceof Mago) {
                 nombreEstrategia = "curación a un compañero";
                 ((Mago) pAtacante).usarEstrategia(atacante.getPersonajes());
-            } else if (pAtacante instanceof Místico) {
+            } else if (pAtacante instanceof Mistico) {
                 nombreEstrategia = "absorción de daño acumulado";
-                ((Místico) pAtacante).usarEstrategia(danoAcumulado);
+                ((Mistico) pAtacante).usarEstrategia(danoAcumulado);
             }
 
             pAtacante.realizarAtaque(pDefensor);

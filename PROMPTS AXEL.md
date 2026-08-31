@@ -177,6 +177,18 @@ La estrategia es pedir a la IA que nos ayude describiendo el trabajo detalladame
 ## 3. Resolución de Errores (Debugging)
 *(Usa esta sección cuando te hayas encontrado con un error de compilación o un crash en la aplicación (Logcat) y usaste la IA para resolverlo)*
 
-* **Error obtenido (Logcat/Consola):** 
+### Error 1: Clases de la issue #1 sin `package` y clase `Místico` con nombre de archivo/clase inconsistente
+
+* **Error obtenido (compilación):**
   ```text
-  [Pega aquí el error, Ej: NullPointerException en MainActivity.java:45]
+  class Mistico is public, should be declared in a file named Mistico.java
+  ```
+  Además, `Personaje.java`, `Guerrero.java`, `Mago.java`, `Equipo.java` y `Main.java` no tenían la línea `package espol.poo.juego;`, quedando en el paquete por defecto en vez de `espol.poo.juego`.
+
+* **¿Se usó IA para resolverlo?** No. Lo detecté y corregí yo mismo revisando el código que subió mi compañero (issue #1) al traerlo a mi rama local con `git pull` para empezar la parte de Android.
+
+* **Causa:** el LLM que usó mi compañero generó el archivo `Místico.java` (con tilde, igual que en el prompt de la issue) pero declaró la clase adentro como `Mistico` (sin tilde) — un desajuste entre nombre de archivo y nombre de clase que Java no permite compilar. Además generó las 5 clases sin declarar el paquete `espol.poo.juego`, rompiendo la estructura de carpetas ya acordada con el equipo.
+
+* **Solución aplicada:** renombré el archivo a `Mistico.java` (sin tilde, consistente en todo el código) y actualicé las 3 referencias en `Main.java` (`new Mistico(...)` x2, `instanceof Mistico`/cast). Agregué `package espol.poo.juego;` como primera línea de `Personaje.java`, `Guerrero.java`, `Mago.java`, `Equipo.java` y `Main.java`.
+
+* **Pendiente / hallazgo adicional (sin corregir todavía):** encontré un `Scanner` (`new Scanner(System.in)`, dentro de `usarEstrategia(int)` en `Mistico.java`) que nunca se cierra. Lo dejé así por ahora porque esa lectura por consola de todas formas se va a reemplazar por completo al pasar la lógica a Android (un `AlertDialog` en vez de `Scanner`, ya que ahí no se puede bloquear la ejecución esperando una respuesta como en consola).

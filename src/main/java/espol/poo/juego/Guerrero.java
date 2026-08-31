@@ -1,3 +1,4 @@
+package espol.poo.juego;
 public class Guerrero extends Personaje {
 
     public Guerrero(String nombre, int vida, int ataque, int defensa) {

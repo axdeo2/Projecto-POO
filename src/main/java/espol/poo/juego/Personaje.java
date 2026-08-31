@@ -1,3 +1,5 @@
+package espol.poo.juego;
+
 public abstract class Personaje {
     protected String nombre;
     protected int vida;
