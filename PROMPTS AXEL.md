@@ -173,6 +173,52 @@ La estrategia es pedir a la IA que nos ayude describiendo el trabajo detalladame
 
 ---
 
+### Iteración 12: Pantalla de selección de equipos (issue #3, Android)
+* **Objetivo:** Construir la primera pantalla de mi propia parte (Android): elegir tipo y nombre de cada personaje por equipo, y pasar a la pantalla de combate.
+* **Herramienta:** Claude Code (Claude Sonnet 5)
+
+**Prompt Utilizado:**
+> Actúa como desarrollador Android experto en Java. En la carpeta del proyecto actual ya está el código de las clases y dependencias para Android Studio. Tengo estas clases de modelo: Personaje, Guerrero, Mago, Místico, Equipo. Necesito la pantalla de selección de equipos en Android Studio: por cada personaje de cada equipo, un Spinner para elegir su tipo (Guerrero/Mago/Místico) y un TextField para su nombre, más un botón "Confirmar Equipo" por cada equipo (A y B) que valide y guarde la configuración antes de pasar a la pantalla de combate.
+
+**Resultado y Análisis Crítico:**
+* **¿El código funcionó a la primera?** Sí, compiló a la primera (`./gradlew :app:assembleDebug`).
+* **Errores o Alucinaciones detectadas:** Ninguno. Sí hizo falta una decisión técnica: las clases reales de mi compañero (issue #1) no tenían `implements Serializable`, necesario para pasar los objetos `Equipo` de una pantalla a otra por `Intent` — se agregó solo eso, sin tocar la lógica del juego.
+* **Modificaciones manuales realizadas:** Ninguna.
+
+---
+
+### Iteración 13: Pantalla de combate (issue #3, Android)
+* **Objetivo:** Mostrar ambos equipos en pantalla (vida, ataque, defensa) y poder jugar el combate turno a turno con botones.
+* **Herramienta:** Claude Code (Claude Sonnet 5)
+
+**Prompt Utilizado:**
+> Ahora, sobre esta misma pantalla, necesito la pantalla de combate: un panel por equipo (GridView) mostrando nombre del personaje, barra de vida (ProgressBar), las estadísticas de ataque y defensa de cada personaje para esto usa los TextView; un botón "Usar Estrategia" que dispare usarEstrategia() del personaje en turno; un botón "Atacar" que aplique el daño al personaje contrario y actualice su ProgressBar que representa visualmente la vida de los personajes; y un log de combate en ScrollView mostrando cada evento de turno. Cuando ataque el Místico, muestra un AlertDialog pidiéndole al jugador un número entre 1 y 6 antes de resolver el ataque.
+
+**Resultado y Análisis Crítico:**
+* **¿El código funcionó a la primera?** Sí, compiló a la primera.
+* **Errores o Alucinaciones detectadas:** Ninguna alucinación, pero sí un hallazgo importante: el método real `Mistico.usarEstrategia(int)` de mi compañero usa `Scanner` leyendo de consola, lo cual colgaría la app si se llamaba directo en Android (nunca llega esa entrada). La IA lo detectó antes de escribir el código y, en vez de tocar `Mistico.java`, resolvió la predicción del AlertDialog directamente en la pantalla de combate usando los getters/setters públicos de `Personaje` (mismo efecto, sin Scanner).
+* **Modificaciones manuales realizadas:** Ninguna.
+
+---
+
+### Iteración 14: Pantalla/mensaje de fin de partida (issue #3, Android)
+* **Objetivo:** Mostrar el ganador o empate al terminar el combate, y poder volver a jugar.
+* **Herramienta:** Claude Code (Claude Sonnet 5)
+
+**Prompt Utilizado:**
+> Ahora necesito la pantalla o mensaje de fin de partida: cuando el combate termine (un equipo derrotado, o 15 rondas cumplidas según el criterio de vida total), muestra claramente el equipo ganador o el empate, con una opción para volver a la pantalla de selección de equipos y jugar de nuevo.
+
+**Resultado y Análisis Crítico:**
+* **¿El código funcionó a la primera?** Parcialmente. El diálogo de fin de partida (mensaje de ganador/empate) ya existía de un paso anterior y funcionaba, pero el botón "Volver a selección" solo hacía `finish()`, lo que regresaba a la misma pantalla de selección ya usada (con los campos deshabilitados de la partida anterior) en vez de dejarla lista para una partida nueva.
+* **Errores o Alucinaciones detectadas:** Ese bug del "jugar de nuevo" que no reiniciaba de verdad la pantalla — lo detectó y corrigió la propia IA al revisar el flujo, relanzando una `MainActivity` nueva y limpiando la pila de pantallas.
+* **Modificaciones manuales realizadas:** Ninguna; la corrección la hizo la IA.
+
+---
+
+*Nota: no se registran aquí preguntas operativas que no son de generación de código (p. ej. cómo ejecutar la app en un emulador), por indicación mía — no aportan a evaluar ingeniería de prompts.*
+
+---
+
 
 ## 3. Resolución de Errores (Debugging)
 *(Usa esta sección cuando te hayas encontrado con un error de compilación o un crash en la aplicación (Logcat) y usaste la IA para resolverlo)*
